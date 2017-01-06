@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      .container{
+        margin-top: 100px;
+        text-align: center;
+      }
+    </style>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'random_word/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'random_word/css/bootstrap-theme.min.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-xs-10 col-xs-offset-1">
+        <h3>Random word (attempt # {{count}})</h3>
+        <h1 class="jumbotron">{{string}}</h1>
+          <a class="btn btn-danger" href="/reset">Generate</a>
+      </div>
+    </div>
+
+    {% load staticfiles %}
+    <script src="{% static 'random_word/js/jquery.min.js' %}"></script>
+    <script src="{% static 'survey/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>
