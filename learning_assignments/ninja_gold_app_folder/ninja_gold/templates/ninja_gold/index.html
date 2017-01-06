@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type='text/css' href="{% static 'ninja_gold/css/styles.css' %}">
+  </head>
+  <body>
+    <h3 class="gold">Your Gold: {{ request.session.gold}}</h3>
+    <a href="/reset">Reset</a>
+
+    <div class="box">
+      <h4>Farm</h4>
+      <p>(earns 10-20 gold)</p>
+      <form class="" action="/process/farm" method="post">
+        {% csrf_token %}
+        <input type="submit" name="" value="Find Gold!">
+      </form>
+    </div>
+
+    <div class="box">
+      <h4>Cave</h4>
+      <p>(earns 5-10 gold)</p>
+      <form class="" action="/process/cave" method="post">
+        {% csrf_token %}
+        <input type="submit" name="" value="Find Gold!">
+      </form>
+    </div>
+
+    <div class="box">
+      <h4>House</h4>
+      <p>(earns 2-5 gold)</p>
+      <form class="" action="/process/house" method="post">
+        {% csrf_token %}
+        <input type="submit" name="" value="Find Gold!">
+      </form>
+    </div>
+
+    <div class="box">
+      <h4>Casino</h4>
+      <p>(earns/lose 0-50 gold)</p>
+      <form class="" action="/process/casino" method="post">
+        {% csrf_token %}
+        <input type="submit" name="" value="Find Gold!">
+      </form>
+    </div>
+
+    <h3>Activity:</h3>
+    <div class="act">
+      {% for i in request.session.activity %}
+        {% if i.lost_gain == 'gain' %}
+          <p class="gain">{{i.string}}</p>
+        {% else %}
+          <p class="lost">{{i.string}}</p>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+
+
+  </body>
+</html>
