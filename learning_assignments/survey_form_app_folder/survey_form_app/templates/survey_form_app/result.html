@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>You've submitted this form {{request.session.count}} times now</h1>
+    <h1>Your name: {{ request.session.info.name}}</h1>
+    <h1>Your location: {{ request.session.info.location}}</h1>
+    <h1>Your language: {{ request.session.info.language}}</h1>
+    <h1>Your comment: {{ request.session.info.comment}}</h1>
+    <a href="/">Go Back</a>
+  </body>
+</html>
