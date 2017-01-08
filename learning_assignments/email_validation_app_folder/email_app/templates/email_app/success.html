@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1><h1>{{request.session.success}}</h1></h1>
+    <h1>Emails entered</h1>
+    {% for i in emails %}
+      <p>{{i.email}} - {{i.created_at}}</p>
+      <a href="/destroy/{{i.id}}">Delete</a>
+    {% endfor %}
+    <hr>
+    <a href="/">Back</a>
+  </body>
+</html>
