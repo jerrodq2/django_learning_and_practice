@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Success! Welcome, {% if messages %}
+        {% for i in messages %}
+          {{i}}
+        {% endfor %}
+      {%endif%}!
+    </h1>
+      <!-- THIS IS JUST ONE H1 TAG FOR PRACTICE WITH FLASH MESSAGES, OTHERWISE I WOULD HAVE USED SESSIONS -->
+  </body>
+</html>
