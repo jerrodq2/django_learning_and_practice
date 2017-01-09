@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Add a new product</h1>
+    {% if messages %}
+      {% for i in messages %}
+        <p>{{i}}</p>
+      {% endfor %}
+    {% endif %}
+    <form class="" action="{% url 'semi:create' %}" method="post">
+      {% csrf_token %}
+      Name: <input type="text" name="name" value="">
+      Descriptoin: <input type="text" name="description" value="">
+      Price: <input type="text" name="price" value="">
+      <input type="submit" name="" value="Create">
+    </form>
+    <a href="{% url 'semi:index' %}">Go Back</a>
+  </body>
+</html>
