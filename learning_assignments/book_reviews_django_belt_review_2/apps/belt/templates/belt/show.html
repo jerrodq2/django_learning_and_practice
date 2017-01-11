@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="{% url 'belt:books' %}">Home</a> | <a href="{% url 'belt:logout' %}">Logout</a>
+    <h1>{{book.title}}</h1>
+    <h3>Author: {{book.author.name}}</h3>
+    <br>
+    <h2>Reviews:</h2>
+    {% for i in reviews %}
+      <hr>
+      <p>Rating:
+        {% for x in i.rating %}
+          &#9733;
+        {% endfor %}
+        {% for x in i.left %}
+          &#9734;
+        {% endfor %}
+      </p>
+      <p><a href="{% url 'belt:user' id=i.user.id %}">{{i.user.alias}}</a> says: <i>{{i.review}}</i></p>
+      <p><i>{{i.created_at}}</i></p>
+      {% if i.user.id == request.session.id %}
+        <a href="{% url 'belt:destroy' rid=i.id bid=book.id %}">Delete this review</a>
+      {% endif %}
+
+    {% endfor %}
+    <br>
+    <h2>Add a review:</h2>
+    {% if messages %}
+      {% for i in messages %}
+        <p>{{i}}</p>
+      {% endfor %}
+    {% endif %}
+    <form class="" action="{% url 'belt:createReview' id=book.id %}" method="post">
+      {% csrf_token %}
+      <textarea name="review" rows="8" cols="80"></textarea>
+      Rating: <select class="" name="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <input type="submit" name="" value="Submit Review">
+    </form>
+  </body>
+</html>
