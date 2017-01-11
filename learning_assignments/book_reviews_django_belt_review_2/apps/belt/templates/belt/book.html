@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="{% url 'belt:add' %}">Add Book and Review</a> | <a href="{% url 'belt:logout' %}">Logout</a>
+    <h1>Welcome, {{request.session.name}}</h1>
+    <h2>Recent Book Review:</h2>
+    {% for i in three %}
+      <h3><a href="{% url 'belt:show' id=i.id %}">{{i.title}}</a></h3>
+      <p>Rating:
+        {% for x in i.rating %}
+          &#9733;
+        {% endfor %}
+        {% for x in i.left %}
+          &#9734;
+        {% endfor %}
+      </p>
+
+      <p><a href="{% url 'belt:user' id=i.review.user.id %}">{{i.review.user.alias}}</a> says: <i>{{i.review.review}}</i></p>
+      <p><i>{{i.review.created_at}}</i></p>
+
+    {% endfor %}
+
+    <br>
+
+    <h2>Other Books with Reviews:</h2>
+    <ul>
+      {% for i in books %}
+        <li><a href="{% url 'belt:show' id=i.id %}">{{i.title}}</a></li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
