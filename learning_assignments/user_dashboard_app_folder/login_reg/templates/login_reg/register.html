@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="{% url 'login_reg:index' %}">Home</a>
+    <a href="{% url 'login_reg:signin' %}">Sign in</a>
+    <h2>Register</h2>
+    {% if messages %}
+      {% for i in messages %}
+        <p>{{i}}</p>
+      {% endfor %}
+    {% endif %}
+    <form class="" action="{% url 'login_reg:register_create' %}" method="post">
+      {% csrf_token %}
+      Email: <input type="email" name="email" value="">
+      First Name: <input type="text" name="first_name" value="">
+      Last Name: <input type="text" name="last_name" value="">
+      Password: <input type="password" name="password" value="">
+      Confirmation Password: <input type="password" name="confirmation" value="">
+      <input type="submit" name="" value="Register">
+    </form>
+    <a href="{% url 'login_reg:signin' %}">Already have an account? Login</a>
+  </body>
+</html>

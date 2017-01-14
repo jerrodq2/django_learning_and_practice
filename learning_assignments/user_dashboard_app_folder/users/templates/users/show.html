@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% if request.session.admin %}
+      <a href="{% url 'users:admin' %}">Dashboard</a>
+    {% else %}
+      <a href="{% url 'users:index' %}">Dashboard</a>
+    {% endif %}
+    <a href="{% url 'users:show' id=request.session.id %}">Profile</a>
+    <a href="{% url 'users:edit' %}">Edit Profile</a>
+    <a href="{% url 'login_reg:logout' %}">Logout</a>
+    <br><br>
+
+    <h1>{{user.first_name}} {{user.last_name}}</h1>
+    <h3>Registered at: {{user.created_at}}</h3>
+    <h3>User ID: #{{user.id}}</h3>
+    <h3>Email Address: {{user.email}}</h3>
+    {% if user.description %}
+      <h3>Description: {{user.description}}</h3>
+    {% else %}
+      <h3>Description: None</h3>
+    {% endif %}
+    <br>
+    {% if messages %}
+      {% for i in messages %}
+        <p>{{i}}</p>
+      {% endfor %}
+    {% endif %}
+    <h2>Leave a message for {{user.first_name}}</h2>
+    <form class="" action="{% url 'users:message' id=user.id %}" method="post">
+      {% csrf_token %}
+      <textarea name="message" rows="8" cols="80"></textarea>
+      <input type="submit" name="" value="Post">
+    </form>
+
+    {% for i in message %}
+      <hr>
+      <h3><a href="{% url 'users:show' id=i.creator.id %}">{{i.creator.first_name}}</a>wrote:</h3>
+      <h4>{{i.message}}</h4>
+      <br>
+      {% for c in i.comments %}
+        <h4><a href="{% url 'users:show' id=c.creator.id %}">{{c.creator.first_name}}</a> wrote:</h4>
+        <p>{{c.comment}}</p>
+      {% endfor %}
+
+      <form class="" action="{% url 'users:comment' uid=user.id mid=i.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="comment" value="">
+        <input type="submit" name="" value="Post Comment">
+      </form>
+    {% endfor %}
+
+  </body>
+</html>
