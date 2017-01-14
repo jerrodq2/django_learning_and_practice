@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% if request.session.admin %}
+      <a href="{% url 'users:admin' %}">Dashboard</a>
+    {% else %}
+      <a href="{% url 'users:index' %}">Dashboard</a>
+    {% endif %}
+    <a href="{% url 'users:show' id=request.session.id %}">Profile</a>
+    <a href="{% url 'users:edit' %}">Edit Profile</a>
+    <a href="{% url 'login_reg:logout' %}">Logout</a>
+    <br><br>
+
+    <h1>Edit Profile</h1>
+    {% if messages %}
+      {% for i in messages %}
+        <p>{{i}}</p>
+      {% endfor %}
+    {% endif %}
+    <h4>Edit Information</h4>
+    <form class="" action="{% url 'users:edit_info' %}" method="post">
+      {% csrf_token %}
+      Email: <input type="email" name="email" value="">
+      First Name: <input type="text" name="first_name" value="">
+      Last Name: <input type="text" name="last_name" value="">
+      <input type="submit" name="" value="Save">
+    </form>
+    <br>
+    <h4>Edit Password</h4>
+    <form class="" action="{% url 'users:edit_password' %}" method="post">
+      {% csrf_token %}
+      Password: <input type="password" name="password" value="">
+      Confirmation Password: <input type="password" name="confirmation" value="">
+      <input type="submit" name="" value="Update Password">
+    </form>
+    <br>
+    <h4>Edit Password</h4>
+    <form class="" action="{% url 'users:edit_description' %}" method="post">
+      {% csrf_token %}
+      <textarea name="description" rows="8" cols="80"></textarea>
+      <input type="submit" name="" value="Update Description">
+    </form>
+  </body>
+</html>
