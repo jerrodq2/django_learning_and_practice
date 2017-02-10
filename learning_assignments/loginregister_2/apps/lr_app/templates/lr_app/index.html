@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'lr_app/css/main.css' %}">
+  </head>
+  <body>
+    {% if messages %}
+      {% for i in messages %}
+        <p>{{i}}</p>
+      {% endfor %}
+    {% endif %}
+
+    <h1 class="reg">Registration</h1>
+    <form class="reg_form" action="{% url 'lr:register' %}" method="post">
+      {% csrf_token %}
+      <label for="first_name">First Name: <input type="text" name="first_name" value=""></label>
+      <label for="last_name">Last Name: <input type="text" name="last_name" value=""></label>
+      <label for="email">Email: <input type="email" name="email" value=""></label>
+      <label for="password">Password: <input type="password" name="password" value=""></label>
+      <label for="confirmation">Confirmation Password: <input type="password" name="confirmation" value=""></label>
+      <input type="submit" name="" value="Register">
+    </form>
+    <hr>
+    <h1 class="login">Login</h1>
+    <form class="" action="{% url 'lr:login' %}" method="post">
+      {% csrf_token %}
+      <label for="email">Email: <input type="email" name="email" value=""></label>
+      <label for="password">Password: <input type="password" name="password" value=""></label>
+      <input type="submit" name="" value="Login">
+    </form>
+  </body>
+</html>
