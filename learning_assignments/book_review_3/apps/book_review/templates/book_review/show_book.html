@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="{% url 'br:books' %}">Home</a> |<a href="{% url 'br:add_book' %}">Add Book and Review</a> | <a href="{% url 'br:logout' %}">Logout</a>
+    <br>
+    <h1>{{book.title}}</h1>
+    <h3><a href="{% url 'br:author' id=book.author.id %}">{{book.author.name}}</a></h3>
+    <b><h3>Reviews:</h3></b>
+    <ul>
+      {% for review in reviews %}
+        <hr>
+        <i>Rating:
+          {%for star in review.rating %}
+            &#9733;
+          {% endfor %}
+          {%for star in review.uncolored_stars %}
+            &#9734;
+          {% endfor %}
+        </i>
+        <br>
+        <i><a href="{% url 'br:show_user' id=review.user.id %}">{{review.user.name}}</a> says: {{review.review}}</i><br>
+        <i><small>Posted on {{review.created_at}}</small></i>
+
+        {% if review.user.id == request.session.id %}
+          <a href="{% url 'br:destroy_review' book_id=book.id review_id=review.id %}">Delete this Review</a>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <h3>Add a Review:</h3>
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{message}}</p>
+      {% endfor %}
+    {% endif %}
+    <form class="" action="{% url 'br:create_review' id=book.id %}" method="post">
+      {% csrf_token %}
+      <textarea name="review" rows="8" cols="80"></textarea>
+      Rating: <select class="" name="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <input type="submit" name="" value="Submit a Review">
+    </form>
+  </body>
+</html>
