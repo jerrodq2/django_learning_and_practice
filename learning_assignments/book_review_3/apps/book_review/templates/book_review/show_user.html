@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="{% url 'br:books' %}">Home</a> |<a href="{% url 'br:add_book' %}">Add Book and Review</a> | <a href="{% url 'br:logout' %}">Logout</a>
+    <h2>User Alias: {{user.alias}}</h2>
+    <h3>Name: {{user.name}}</h3>
+    <h3>Email: {{user.email}}</h3>
+    <h3>Total Reviews: {{number_of_reviews}}</h3>
+    <br>
+    <h3>Posted Reviews on the following books</h3>
+    <ul>
+      {% for review in reviews %}
+        <li><a href="{% url 'br:show_book' id=review.book.id %}">{{ review.book.title}}</a></li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
